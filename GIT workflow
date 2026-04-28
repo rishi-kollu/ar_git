@@ -1,0 +1,22 @@
+flowchart TD
+    subgraph Local_Machine ["Local Machine (Git)"]
+        WD[Working Directory] -- "git add" --> SA[Staging Area]
+        SA -- "git commit" --> LR[Local Repository]
+    end
+
+    subgraph GitHub_Remote ["Remote (GitHub)"]
+        RR[Remote Repository]
+        PR[Pull Request]
+        CR{Code Review}
+    end
+
+    %% Workflow Connections
+    LR -- "git push" --> RR
+    RR -- "git fetch/pull" --> LR
+    
+    %% Team Workflow
+    RR -- "Fork" --> FR[Your Forked Repo]
+    FR -- "New Branch" --> PR
+    PR --> CR
+    CR -- "Approved" --> Merge[Merge to Main]
+    Merge --> RR
